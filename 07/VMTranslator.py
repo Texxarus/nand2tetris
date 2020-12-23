@@ -39,8 +39,13 @@ for line in file_input:
             file_output.write(" @" + num + "\n D=A \n @SP \n A=M \n M=D \n @SP \n M=M+1 \n")
         elif cmd == "pop":
             if mem in Seg_sym:
-                file_output.write(" @" + num + "\n D=A \n @" + Seg_sym[mem] + "\n D=D+M \n @R13 \n M=D \n"
-                                + " @SP \n A=M-1 \n D=M \n @R13 \n A=M \n M=D \n @SP \n M=M-1 \n")
+                #first solution
+                #file_output.write(" @" + num + "\n D=A \n @" + Seg_sym[mem] + "\n D=D+M \n @R13 \n M=D \n"
+                #                + " @SP \n A=M-1 \n D=M \n @R13 \n A=M \n M=D \n @SP \n M=M-1 \n")
+
+                #second solution
+                file_output.write(" @" + num + "\n D=A \n @" + Seg_sym[mem] + "\n D=D+M \n"
+                                + " @SP \n A=M-1 \n D=D+M \n A=D-M \n M=D-A \n @SP \n M=M-1 \n")
             elif mem == "static":
                 file_output.write(" @SP \n A=M-1 \n D=M \n @" + input_name.split('.')[0] + "." + num + "\n M=D \n @SP \n M=M-1 \n" )
             elif mem == "temp":
